@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secret Message</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background-color: #ffe6f0;
+      color: #d63384;
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #ff66b2;
+    }
+
+    #buttons {
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      margin: 10px;
+      border: none;
+      border-radius: 25px;
+      background-color: #ff99cc;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff66b2;
+    }
+
+    #no {
+      position: absolute;
+    }
+
+    #message {
+      margin-top: 30px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #d63384;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      color: #ff66b2;
+      animation: float 5s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      50% { transform: translateY(-50px) rotate(15deg); opacity: 0.7; }
+      100% { transform: translateY(0) rotate(-15deg); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Pwede bang tayo na lang dalawa? 💖</h1>
+
+  <!-- Heart decorations -->
+  <div class="heart" style="top: 10%; left: 10%;">💗</div>
+  <div class="heart" style="top: 20%; left: 80%;">💖</div>
+  <div class="heart" style="top: 40%; left: 30%;">💕</div>
+  <div class="heart" style="top: 60%; left: 60%;">💞</div>
+  <div class="heart" style="top: 80%; left: 40%;">💘</div>
+
+  <div id="buttons">
+    <button onclick="yes()">Yes</button>
+    <button id="no" onclick="moveNo()">No</button>
+  </div>
+  <p id="message"></p>
+
+  <script>
+    let noCount = 0;
+
+    function yes() {
+      document.getElementById("message").innerText = "Yieee! Sana all! 💓";
+    }
+
+    function moveNo() {
+      noCount++;
+      const noBtn = document.getElementById("no");
+      const x = Math.floor(Math.random() * (window.innerWidth - 100));
+      const y = Math.floor(Math.random() * (window.innerHeight - 100));
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      if (noCount >= 3) {
+        document.getElementById("message").innerText = "Mag-yes ka na kasi! 🥺";
+      }
+    }
+  </script>
+</body>
+</html>
