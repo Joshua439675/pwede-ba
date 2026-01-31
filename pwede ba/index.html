@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pwede Ba?</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background-color: #ffe6f0;
+      color: #d63384;
+      margin: 0;
+      padding-top: 100px;
+      overflow: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin: 0 20px;
+    }
+
+    #buttons {
+      margin-top: 30px;
+      position: relative;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      margin: 10px;
+      border: none;
+      border-radius: 25px;
+      background-color: #ff99cc;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      z-index: 2;
+      position: relative;
+    }
+
+    button:hover {
+      background-color: #ff66b2;
+    }
+
+    #no {
+      position: absolute;
+    }
+
+    #message {
+      margin-top: 30px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      font-size: 22px;
+      color: #ff66b2;
+      animation: float 6s infinite ease-in-out;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart1 { top: 10%; left: 5%; }
+    .heart2 { top: 20%; left: 80%; }
+    .heart3 { top: 50%; left: 30%; }
+    .heart4 { top: 70%; left: 60%; }
+    .heart5 { top: 85%; left: 15%; }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      50% { transform: translateY(-30px) rotate(15deg); opacity: 0.7; }
+      100% { transform: translateY(0) rotate(-15deg); opacity: 1; }
+    }
+
+    /* Popup image */
+    .popup-img { 
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 300px;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      display: none;
+      animation: pop 0.5s ease-out;
+    }
+
+    @keyframes pop {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    /* Fireworks */
+    .firework {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: yellow;
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+      z-index: 9;
+    }
+
+    @keyframes explode {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(10); opacity: 0; }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 22px; }
+      button { font-size: 16px; padding: 10px 20px; }
+      #message { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Pwede bang tayo na lang dalawa? 💖</h1>
+
+  <!-- Floating hearts -->
+  <div class="heart heart1">💗</div>
+  <div class="heart heart2">💖</div>
+  <div class="heart heart3">💕</div>
+  <div class="heart heart4">💞</div>
+  <div class="heart heart5">💘</div>
+
+  <!-- Pop-up Image -->
+  <img id="popup-img" class="popup-img" src="" alt="Reaction" />
+
+  <div id="buttons">
+    <button onclick="yes()">Yes</button>
+    <button id="no" onclick="moveNo()">No</button>
+  </div>
+  <p id="message"></p>
+
+  <script>
+    let noCount = 0;
+
+    function showPopup(src) {
+      const img = document.getElementById("popup-img");
+      img.src = src;
+      img.style.display = "block";
+      setTimeout(() => img.style.display = "none", 1500);
+    }
+
+    function yes() {
+      document.getElementById("message").innerText = "Yieee! Sana all! 💓";
+      showPopup("yieee.png"); // replace with actual image URL
+      triggerFireworks();
+    }
+
+    function moveNo() {
+      noCount++;
+      const noBtn = document.getElementById("no");
+      const maxX = window.innerWidth - 100;
+      const maxY = window.innerHeight - 150;
+      const x = Math.floor(Math.random() * maxX);
+      const y = Math.floor(Math.random() * maxY);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      if (noCount >= 3) {
+        document.getElementById("message").innerText = "Galit ka na no? 😤";
+        showPopup("galit.png"); // replace with actual image URL
+      }
+    }
+
+    function triggerFireworks() {
+      for (let i = 0; i < 15; i++) {
+        const firework = document.createElement("div");
+        firework.classList.add("firework");
+        firework.style.left = `${Math.random() * 100}%`;
+        firework.style.top = `${Math.random() * 100}%`;
+        firework.style.background = getRandomColor();
+        document.body.appendChild(firework);
+        setTimeout(() => firework.remove(), 1000);
+      }
+    }
+
+    function getRandomColor() {
+      const colors = ["#ff4d6d", "#ffc300", "#4cc9f0", "#b5179e", "#3f37c9"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+  </script>
+</body>
+</html>
